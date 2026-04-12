@@ -1,11 +1,21 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { generateItinerary } from '../utils/gemini'
 import { MapPin, Calendar, Users, Wallet, Compass, ArrowRight, Plane } from 'lucide-react'
 import Loader from '../components/Loader'
 
 function PlanTrip() {
   const navigate = useNavigate()
+  const location = useLocation()
+
+useEffect(() => {
+  if (location.state?.destination) {
+    setForm((prev) => ({ ...prev, destination: location.state.destination }))
+  }
+  if (location.state?.travelStyle) {
+    setForm((prev) => ({ ...prev, travelStyle: location.state.travelStyle }))
+  }
+}, [location.state])
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
     destination: '',

@@ -2,20 +2,21 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plane, Plus, Trash2, MapPin, Calendar, Users, Wallet } from 'lucide-react'
 import API from '../utils/api'
+import useAuthStore from '../store/useAuthStore'
 
 function SavedTrips() {
   const navigate = useNavigate()
   const [trips, setTrips] = useState([])
   const [loading, setLoading] = useState(true)
+const { user, token } = useAuthStore()
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      navigate('/login')
-      return
-    }
-    fetchTrips()
-  }, [])
+useEffect(() => {
+  if (!token) {
+    navigate('/login')
+    return
+  }
+  fetchTrips()
+}, [])
 
   const fetchTrips = async () => {
     try {
@@ -37,12 +38,21 @@ function SavedTrips() {
     }
   }
 
-  const handleView = (trip) => {
-    localStorage.setItem('currentItinerary', JSON.stringify(trip.itinerary))
-    navigate('/itinerary')
+const handleView = (trip) => {
+  const itineraryData = {
+    destination: trip.destination,
+    days: trip.days,
+    people: trip.people,
+    budget: trip.budget,
+    travelStyle: trip.travelStyle,
+    itinerary: trip.itinerary.itinerary || trip.itinerary,
+    generalTips: trip.itinerary.generalTips,
+    estimatedBudget: trip.itinerary.estimatedBudget,
   }
+  localStorage.setItem('currentItinerary', JSON.stringify(itineraryData))
+  navigate('/itinerary')
+}
 
-  const user = JSON.parse(localStorage.getItem('user') || '{}')
 
   return (
     <div
