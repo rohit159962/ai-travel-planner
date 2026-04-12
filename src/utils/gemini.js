@@ -1,4 +1,3 @@
-console.log('API KEY:', import.meta.env.VITE_GEMINI_API_KEY)
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY)
