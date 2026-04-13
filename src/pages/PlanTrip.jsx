@@ -29,24 +29,54 @@ useEffect(() => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async () => {
-    if (!form.destination || !form.days || !form.budget || !form.travelStyle || !form.people) {
-      alert('Please fill in all fields!')
-      return
-    }
-    setLoading(true)
-    try {
-      const result = await generateItinerary(form)
-      localStorage.setItem('currentItinerary', JSON.stringify(result))
-      navigate('/itinerary')
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong! Please try again.')
-    } finally {
-      setLoading(false)
-    }
+ const handleSubmit = async () => {
+  if (!form.destination || !form.days || !form.budget || !form.travelStyle || !form.people) {
+    alert('Please fill in all fields!')
+    return
   }
 
+  setLoading(true)
+
+  try {
+    const result = await generateItinerary(form)
+
+    localStorage.setItem('currentItinerary', JSON.stringify(result))
+
+    navigate('/itinerary') 
+
+  } catch (error) {
+    console.error(error)
+
+    
+    const fallback = {
+      destination: form.destination,
+      days: form.days,
+      people: form.people,
+      budget: form.budget,
+      travelStyle: form.travelStyle,
+      itinerary: [
+        {
+          day: 1,
+          title: "Sample Day",
+          morning: "Explore nearby attractions",
+          afternoon: "Visit popular places",
+          evening: "Relax and enjoy local vibe",
+          food: "Try local cuisine",
+          tips: "Stay hydrated and plan ahead"
+        }
+      ],
+      generalTips: "AI unavailable due to quota. Showing sample itinerary.",
+      estimatedBudget: "₹10,000 - ₹20,000"
+    }
+
+    localStorage.setItem('currentItinerary', JSON.stringify(fallback))
+
+    
+    navigate('/itinerary')
+  } finally {
+    setLoading(false)
+  }
+}
   if (loading) return <Loader />
 
   return (

@@ -18,9 +18,9 @@ const destinationSeeds = {
   'rajasthan': 'rajasthan-india-palace',
 }
 
-export const getDestinationPhoto = (destination) => {
+export const getDestinationPhoto = (destination, variant = '') => {
   if (!destination) return 'https://picsum.photos/seed/travel/1200/800'
-  const key = destination.toLowerCase().split(',')[0].trim()
-  const seed = destinationSeeds[key] || key.replace(/\s+/g, '-')
+  const base = destination.split(',')[0].trim().toLowerCase().replace(/\s+/g, '-')
+  const seed = variant ? `${base}-${variant}` : base
   return `https://picsum.photos/seed/${seed}/1200/800`
 }
