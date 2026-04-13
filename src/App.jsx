@@ -4,21 +4,32 @@ import PlanTrip from './pages/PlanTrip'
 import Itinerary from './pages/Itinerary'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import SavedTrips from './pages/SavedTrips'
 import Dashboard from './pages/Dashboard'
+import Footer from './components/Footer'
+import SavedTrips from './pages/Savedtrips'
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/plan" element={<PlanTrip />} />
-        <Route path="/itinerary" element={<Itinerary />} />
-        <Route path="/saved" element={<SavedTrips />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+    
+      <div className="bg-[#0a0a0f] text-white min-h-screen flex flex-col">
+
+        {/* Content */}
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/plan" element={<PlanTrip />} />
+            <Route path="/itinerary" element={<Itinerary />} />
+            <Route path="/saved" element={<SavedTrips />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
+
+        {/* Footer */}
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }

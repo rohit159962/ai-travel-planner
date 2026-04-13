@@ -65,21 +65,26 @@ function Itinerary() {
   const [saved, setSaved] = useState(false);
   const [heroLoaded, setHeroLoaded] = useState(false);
 
+
   useEffect(() => {
     const stored = localStorage.getItem("currentItinerary");
     if (!stored) {
       navigate("/plan");
       return;
     }
-    setData(JSON.parse(stored));
+  const parsed = JSON.parse(stored);
+setData(parsed.data || parsed);
   }, []);
+
 
   useEffect(() => {
     setHeroLoaded(false);
     setTimeout(() => setHeroLoaded(true), 100);
   }, [activeDay]);
 
-  if (!data) return null;
+ if (!data || !data.itinerary) {
+  return <p className="text-white p-6">Loading itinerary...</p>;
+}
 
   const day = data.itinerary[activeDay];
   const heroPhoto = getDestinationPhoto(data.destination, "hero");
@@ -243,6 +248,7 @@ function Itinerary() {
           </div>
         </div>
 
+
         {/* Time Slots with Photos */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6">
           {timeSlots.map((slot) => {
@@ -387,7 +393,10 @@ function Itinerary() {
         </div>
       </div>
     </div>
+    
+
   );
+  
 }
 
 export default Itinerary;
