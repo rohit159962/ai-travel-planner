@@ -66,15 +66,24 @@ function Itinerary() {
   const [heroLoaded, setHeroLoaded] = useState(false);
 
 
-  useEffect(() => {
-    const stored = localStorage.getItem("currentItinerary");
-    if (!stored) {
-      navigate("/plan");
-      return;
-    }
+
+
+const { setTripData } = useTripStore();
+
+useEffect(() => {
+  const stored = localStorage.getItem("currentItinerary");
+
+  if (!stored) {
+    navigate("/plan");
+    return;
+  }
+
   const parsed = JSON.parse(stored);
-setData(parsed.data || parsed);
-  }, []);
+  const finalData = parsed.data || parsed;
+
+  setData(finalData);      
+  setTripData(finalData);  
+}, []);
 
 
   useEffect(() => {
@@ -290,6 +299,40 @@ setData(parsed.data || parsed);
           })}
         </div>
 
+{/* Places to Visit */}
+<div className="mb-10">
+  <h2 className="text-2xl font-bold mb-5 flex items-center gap-2">
+    <MapPin className="text-purple-400" size={20} />
+    Top Places to Visit
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    {day?.placesToVisit?.map((place, i) => (
+      <div
+        key={i}
+        className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all duration-300"
+      >
+        <h3 className="text-white font-semibold text-lg mb-2">
+          {place.name}
+        </h3>
+
+        <p className="text-white/60 text-sm mb-3 leading-relaxed">
+          {place.description}
+        </p>
+
+        <div className="flex justify-between text-xs text-white/40">
+          <span>🕒 {place.bestTime}</span>
+          <span>🎟 {place.entryFee}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+  {!day?.placesToVisit?.length && (
+  <p className="text-white/50">No places available</p>
+)}
+</div>
+
+
         {/* Tips */}
         <div className="bg-purple-500/10 border border-purple-500/20 rounded-2xl overflow-hidden mb-6">
           <div className="relative h-24 overflow-hidden">
@@ -333,6 +376,40 @@ setData(parsed.data || parsed);
             </p>
           </div>
         </div>
+
+ {/* Hotels */}
+<div className="mb-10">
+  <h2 className="text-2xl font-bold mb-5 flex items-center gap-2">
+    <Star className="text-yellow-400" size={20} />
+    Recommended Hotels
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    {data?.hotels?.map((hotel, i) => (
+      <div
+        key={i}
+        className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all duration-300"
+      >
+        <h3 className="text-white font-semibold text-lg mb-1">
+          {hotel.name}
+        </h3>
+
+        <p className="text-purple-400 text-sm mb-2">
+          {hotel.type}
+        </p>
+
+        <p className="text-white/60 text-sm mb-3">
+          {hotel.description}
+        </p>
+
+        <div className="flex justify-between text-xs text-white/40">
+          <span>{hotel.priceRange}</span>
+          <span>⭐ {hotel.highlights}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
 
      {/* Estimated Budget */}
 <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden flex flex-col gap-4 mb-6">

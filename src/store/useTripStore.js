@@ -5,6 +5,9 @@ const useTripStore = create((set) => ({
   trips: [],
   loading: false,
 
+   tripData: null,
+  setTripData: (data) => set({ tripData: data }),
+
   fetchTrips: async () => {
     set({ loading: true })
     try {

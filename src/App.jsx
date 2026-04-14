@@ -14,7 +14,6 @@ function App() {
     <BrowserRouter>
     
       <div className="bg-[#0a0a0f] text-white min-h-screen flex flex-col">
-
         {/* Content */}
         <div className="flex-grow">
           <Routes>
