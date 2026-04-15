@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot, User, Send } from "lucide-react";
 import useChatStore from "../store/useChatstore";
+import API from "../utils/api";
 
 const Chatbot = () => {
   const [input, setInput] = useState("");
@@ -29,15 +30,11 @@ const sendMessage = async (customInput) => {
   setLoading(true);
 
   try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: messageToSend }),
-    });
+   const res = await API.post("/chat", {
+  message: messageToSend,
+});
 
-    const data = await res.json();
+const data = res.data;
 
     addMessage({
       role: "bot",
