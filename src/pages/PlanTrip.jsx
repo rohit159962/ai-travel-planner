@@ -69,28 +69,6 @@ function PlanTrip() {
     } catch (error) {
       console.error(error);
 
-      // const fallback = {
-      //   destination: form.destination,
-      //   days: form.days,
-      //   people: form.people,
-      //   budget: form.budget,
-      //   travelStyle: form.travelStyle,
-      //   itinerary: [
-      //     {
-      //       day: 1,
-      //       title: "Sample Day",
-      //       morning: "Explore nearby attractions",
-      //       afternoon: "Visit popular places",
-      //       evening: "Relax and enjoy local vibe",
-      //       food: "Try local cuisine",
-      //       tips: "Stay hydrated and plan ahead"
-      //     }
-      //   ],
-      //   generalTips: "AI unavailable due to quota. Showing sample itinerary.",
-      //   estimatedBudget: "₹10,000 - ₹20,000"
-      // }
-
-      // localStorage.setItem('currentItinerary', JSON.stringify(fallback))
 
       navigate("/itinerary");
     } finally {

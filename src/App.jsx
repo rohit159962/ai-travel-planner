@@ -7,6 +7,7 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Footer from './components/Footer'
 import Saved from './pages/Saved'
+import ChatbotLauncher from './components/ChatbotLauncher'
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
           </Routes>
         </div>
-
+<ChatbotLauncher />
         {/* Footer */}
         <Footer />
       </div>
