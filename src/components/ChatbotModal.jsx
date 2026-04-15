@@ -1,7 +1,7 @@
 import { X, Bot } from "lucide-react";
 import Chatbot from "./Chatbot";
 import { useEffect, useState } from "react";
-import useChatStore from "../store/useChatstore";
+import useChatStore from "../store/useChatStore";
 
 const ChatbotModal = ({ onClose }) => {
   const [scrolled, setScrolled] = useState(false);

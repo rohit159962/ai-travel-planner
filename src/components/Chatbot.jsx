@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot, User, Send } from "lucide-react";
-import useChatStore from "../store/useChatstore";
+import useChatStore from "../store/useChatStore";
 import API from "../utils/api";
 
 const Chatbot = () => {
