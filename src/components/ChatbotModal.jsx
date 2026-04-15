@@ -1,5 +1,5 @@
 import { X, Bot } from "lucide-react";
-import Chatbot from "./ChatBot";
+import Chatbot from "./Chatbot";
 import { useEffect, useState } from "react";
 import useChatStore from "../store/useChatstore";
 
